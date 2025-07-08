@@ -14,7 +14,8 @@ class SxDeviceService:
 
     def is_device_online(self, sn: str) -> bool:
         """Check if device is online (to be implemented)"""
-        return False
+        session = SessionManager.get_instance().get_session_by_sn(sn)
+        return session is not None and session.authed
 
     def get_device_session(self, sn: str):
         """Get device session (to be implemented)"""
