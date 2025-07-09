@@ -117,9 +117,7 @@ python manage.py runserver
 If you want to use WebSocket features, make sure Django Channels is installed and run the ASGI server:
 
 ```sh
-daphne sxdm_py.asgi:application
-# or, for development:
-python manage.py runserver
+uvicorn sxdm_py.asgi:application --host 0.0.0.0 --port 8000
 ```
 
 ## API Usage
