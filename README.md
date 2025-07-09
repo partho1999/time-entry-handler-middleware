@@ -1,24 +1,24 @@
-# 神行系列面板机WebSocket API链接管理服务
+# WebSocket API Connection Management Service for Shenxing Series Panel Devices
 
-## 架构示意图
+## Architecture Diagram
 ![demo.png](demo.png)
 
- 说明
-1. 面板机先通过WS与SxDeviceManager服务进行连接
-2. 设备连接之后，通过接口文档中的【获取登录随机数】、【设备请求登录】两个接口进行设备鉴权，鉴权通过后，SxDeviceManager通过SessionManager保留与设备之间建立的连接Session
-3. 第三方服务通过http接口调用访问SxDeviceManager，即可与对应的device进行通讯
+Explanation:
+1. The panel device first connects to the SxDeviceManager service via WebSocket (WS).
+2. After the device is connected, it uses the [Get Login Random Number] and [Device Login Request] interfaces from the API documentation for device authentication. Once authenticated, SxDeviceManager retains the connection session with the device via SessionManager.
+3. Third-party services can communicate with the corresponding device by calling SxDeviceManager through HTTP interfaces.
 
-## 第三方平台调用说明
-> 第三方平台调用接口访问设备，基本可参考设备提供的API进行调用。除此之外，需要进行以下http header的设置。
+## Instructions for Third-Party Platform Calls
+> Third-party platforms can call device APIs as described in the device's API documentation. In addition, the following HTTP headers must be set:
 
-1. 在http header中添加header[sxdmSn]，用于标明该api调用是具体访问哪个设备的
-2. 根据SxDeviceManager服务是否对第三方服务http调用是否鉴权，（具体可设置application.properties中的access.auth.check.type配置），需要添加不同的header
-  2.1 如果采用不鉴权，则不需要增加其他字段
-  2.2 如果采用简单token鉴权，则需要额外增加http header[sxdmToken]字段，该字段的值，需要和application.properties中的access.auth.check.token字段的值一致，否则调用失败
-  2.3 【推荐】用户可根据自己的安全需要，扩展其他更严格的鉴权方式，具体可参考和修改AccessAuthCheckFilter 类的代码
+1. Add the header [sxdmSn] in the HTTP request to specify which device the API call is targeting.
+2. Depending on whether SxDeviceManager requires authentication for third-party HTTP calls (configured via `access.auth.check.type` in `application.properties`):
+   2.1 If no authentication is required, no additional fields are needed.
+   2.2 If simple token authentication is used, add the HTTP header [sxdmToken] with the value matching `access.auth.check.token` in `application.properties`. Otherwise, the call will fail.
+   2.3 [Recommended] Users can implement stricter authentication as needed by extending or modifying the `AccessAuthCheckFilter` class.
 
-## 设备鉴权
-> 目前SxDeviceManager服务队设备仅做了简单的随机数鉴权方式，建议客户重写SxDeviceServiceImpl类的checkClientLogin方法，采用更严格的设备鉴权方式【推荐
+## Device Authentication
+> Currently, SxDeviceManager uses a simple random number authentication for devices. It is recommended that customers override the `checkClientLogin` method in `SxDeviceServiceImpl` to implement stricter device authentication. [Recommended]
 
 ## Django REST Framework Clone
 
