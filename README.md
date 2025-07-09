@@ -42,22 +42,38 @@ flowchart TD
 
 ```
 time-entry-handler-middleware/
-  ├── device/
-  │   ├── consumers.py      # WebSocket consumer for device connections
-  │   ├── message.py        # Handles device messages and authentication
-  │   ├── middleware.py     # Middleware for API authentication and device session checks
-  │   ├── session.py        # Device session management
-  │   ├── protocol.py       # Protocol definitions for device communication
-  │   ├── constants.py      # API path and protocol constants
-  │   ├── views.py          # API views (device status, etc.)
-  │   └── ...
-  ├── sxdm_py/
-  │   ├── settings.py       # Django settings
-  │   ├── urls.py           # Project URL routing
-  │   ├── asgi.py           # ASGI config for WebSocket support
-  │   └── ...
-  ├── manage.py
-  └── requirements.txt
+├── db.sqlite3
+├── manage.py
+├── README.md
+├── requirements.txt
+├── sxdm_py/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── __pycache__/
+├── sxdm/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── constants.py
+│   ├── middleware.py
+│   ├── models.py
+│   ├── routing.py
+│   ├── serializers.py
+│   ├── services.py
+│   ├── tests.py
+│   ├── urls.py
+│   ├── utils.py
+│   ├── views.py
+│   ├── ws_consumers.py
+│   ├── __pycache__/
+│   └── migrations/
+│       ├── __init__.py
+│       ├── 0001_initial.py
+│       └── __pycache__/
+└── .git/
 ```
 
 ## How to Run
